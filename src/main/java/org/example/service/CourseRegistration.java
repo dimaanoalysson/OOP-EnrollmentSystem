@@ -9,20 +9,20 @@ public class CourseRegistration {
     private ArrayList<Course> courseArrayList = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
 
-    public void addStudent(Course course){
+    public void addCourse(Course course){
         courseArrayList.add(course);
     }
 
     public void displayAll() {
         if (courseArrayList.isEmpty()){
-            System.out.println("There are no students registered yet.");
+            System.out.println("There are no courses registered yet.");
             return;
         }
 
         for (Course c : courseArrayList){
-            System.out.println("Student ID: " + c.getcourseID());
-            System.out.println("Student Name: " + c.getcourseName());
-            System.out.println("Student Program: " + c.getCourseProgram());
+            System.out.println("Course ID: " + c.getcourseID());
+            System.out.println("Course Name: " + c.getcourseName());
+            System.out.println("Course Program: " + c.getCourseProgram());
             System.out.println();
         }
     }
@@ -37,7 +37,7 @@ public class CourseRegistration {
                 System.out.print("Enter New Program: ");
                 String newProgram = scanner.nextLine();
 
-                courseArrayList.set(i, new Course(course.getcourseID(), course.getcourseName(), course.getCourseProgram()));
+                courseArrayList.set(i, new Course(course.getcourseID(), newCourse, newProgram));
                 found = true;
                 System.out.print("Successfully Updated!\n");
                 break;
