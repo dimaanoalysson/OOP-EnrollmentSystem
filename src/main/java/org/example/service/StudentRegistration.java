@@ -14,19 +14,32 @@ public class StudentRegistration {
     }
 
     public void displayAll() {
-        System.out.println(studentArrayList);
+        if (studentArrayList.isEmpty()){
+            System.out.println("There are no students registered yet.");
+            return;
+        }
+
+        for (Student s : studentArrayList){
+            System.out.println("Student ID: " + s.getID());
+            System.out.println("Student Name: " + s.getName());
+            System.out.println("Student Program: " + s.getProgram());
+            System.out.println();
+        }
     }
 
     public void  updateStudent(Student student){
+        boolean found = false;
         for (int i = 0; i < studentArrayList.size(); i++) {
-            if(studentArrayList.get(i).getID() == (student.getID())){
-                System.out.print("Enter name: ");
+            if(studentArrayList.get(i).getID().equals(student.getID())){
+                System.out.print("Enter New Student Name: ");
                 String name = scanner.nextLine();
 
-                System.out.print("Enter program: ");
-                String age = scanner.nextLine();
+                System.out.print("Enter New Program: ");
+                String program = scanner.nextLine();
 
-                studentArrayList.set(i, new Student(student.getID(), name, age));
+                studentArrayList.set(i, new Student(student.getID(), name, program));
+                found = true;
+                System.out.println("Successfully Updated!\n");
                 break;
             }
         }
@@ -34,12 +47,11 @@ public class StudentRegistration {
 
     public String delete(Student student){
         for(int i = 0; i < studentArrayList.size(); i++){
-            if(studentArrayList.get(i).getID() == (student.getID())){
+            if(studentArrayList.get(i).getID().equals(student.getID())){
                 studentArrayList.remove(i);
-                return "Successfully Deleted!";
+                return "Student Successfully Deleted!";
             }
         }
-
         return "No such student exists!";
     }
 }
