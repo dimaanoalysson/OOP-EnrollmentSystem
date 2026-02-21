@@ -1,5 +1,10 @@
 package org.example;
 
+import org.example.model.Course;
+import org.example.model.Student;
+import org.example.service.CourseRegistration;
+import org.example.service.StudentRegistration;
+
 import java.util.Scanner;
 
 public class Main {
@@ -43,6 +48,18 @@ public class Main {
         System.out.println("\n" + "Course ID: " + c.getcourseID());
         System.out.println("Course Name: " + c.getcourseName());
         System.out.println("Program: " + c.getCourseProgram());
+
+        StudentRegistration studentRegistration = new StudentRegistration();
+        CourseRegistration courseRegistration = new CourseRegistration();
+
+        studentRegistration.addStudent(new Student());
+        studentRegistration.displayAll();
+
+        studentRegistration.updateStudent(new Student());
+        studentRegistration.displayAll();
+
+        studentRegistration.delete(new Student());
+        studentRegistration.displayAll();
 
     }
 }
