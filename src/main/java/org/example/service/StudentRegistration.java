@@ -32,12 +32,12 @@ public class StudentRegistration {
         for (int i = 0; i < studentArrayList.size(); i++) {
             if(studentArrayList.get(i).getID().equals(student.getID())){
                 System.out.print("Enter New Student Name: ");
-                String name = scanner.nextLine();
+                String newStudentName = scanner.nextLine();
 
                 System.out.print("Enter New Program: ");
-                String program = scanner.nextLine();
+                String newProgram = scanner.nextLine();
 
-                studentArrayList.set(i, new Student(student.getID(), name, program));
+                studentArrayList.set(i, new Student(student.getID(), newStudentName, newProgram));
                 found = true;
                 System.out.println("Successfully Updated!\n");
                 break;
