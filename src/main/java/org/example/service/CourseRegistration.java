@@ -14,19 +14,32 @@ public class CourseRegistration {
     }
 
     public void displayAll() {
-        System.out.println(courseArrayList);
+        if (courseArrayList.isEmpty()){
+            System.out.println("There are no students registered yet.");
+            return;
+        }
+
+        for (Course c : courseArrayList){
+            System.out.println("Student ID: " + c.getcourseID());
+            System.out.println("Student Name: " + c.getcourseName());
+            System.out.println("Student Program: " + c.getCourseProgram());
+            System.out.println();
+        }
     }
 
-    public void  updateStudent(Course course){
+    public void  updateCourse(Course course){
+        boolean found = false;
         for (int i = 0; i < courseArrayList.size(); i++) {
-            if(courseArrayList.get(i).getcourseID() == (course.getcourseID())){
-                System.out.print("Enter name: ");
-                String name = scanner.nextLine();
+            if(courseArrayList.get(i).getcourseID().equals(course.getcourseID())){
+                System.out.print("Enter New Course Name: ");
+                String newCourse = scanner.nextLine();
 
-                System.out.print("Enter program: ");
-                String age = scanner.nextLine();
+                System.out.print("Enter New Program: ");
+                String newProgram = scanner.nextLine();
 
                 courseArrayList.set(i, new Course(course.getcourseID(), course.getcourseName(), course.getCourseProgram()));
+                found = true;
+                System.out.print("Successfully Updated!\n");
                 break;
             }
         }
@@ -34,7 +47,7 @@ public class CourseRegistration {
 
     public String delete(Course course){
         for(int i = 0; i < courseArrayList.size(); i++){
-            if(courseArrayList.get(i).getcourseID() == (course.getcourseID())){
+            if(courseArrayList.get(i).getcourseID().equals(course.getcourseID())){
                 courseArrayList.remove(i);
                 return "Successfully Deleted!";
             }

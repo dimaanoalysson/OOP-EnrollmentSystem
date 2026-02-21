@@ -10,56 +10,62 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        Student s = new Student();
-
-        System.out.print("Enter Student ID: ");
-        String ID = scanner.nextLine();
-
-        System.out.print("Enter Student Name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Enter Student Program: ");
-        String program = scanner.nextLine();
-
-        s.setID(ID);
-        s.setName(name);
-        s.setProgram(program);
-
-        System.out.println("\n" + "Student ID: " + s.getID());
-        System.out.println("Student Name: " + s.getName());
-        System.out.println("Program: " + s.getProgram());
-
-        Course c = new Course();
-
-        System.out.print("\n" + "Enter Course ID: ");
-        String courseID = scanner.nextLine();
-
-        System.out.print("Enter Course Name: ");
-        String courseName = scanner.nextLine();
-
-        System.out.print("Enter Course Program: ");
-        String courseProgram = scanner.nextLine();
-
-        c.setcourseID(courseID);
-        c.setcourseName(courseName);
-        c.setcourseProgram(courseProgram);
-
-        System.out.println("\n" + "Course ID: " + c.getcourseID());
-        System.out.println("Course Name: " + c.getcourseName());
-        System.out.println("Program: " + c.getCourseProgram());
-
         StudentRegistration studentRegistration = new StudentRegistration();
-        CourseRegistration courseRegistration = new CourseRegistration();
 
-        studentRegistration.addStudent(new Student());
-        studentRegistration.displayAll();
+        while(true){
+            System.out.println("[1] Save Student");
+            System.out.println("[2] Display Student");
+            System.out.println("[3] Update Student");
+            System.out.println("[4] Remove Student");
 
-        studentRegistration.updateStudent(new Student());
-        studentRegistration.displayAll();
+            System.out.print("\nEnter Choice:");
+            String choice = scanner.nextLine();
 
-        studentRegistration.delete(new Student());
-        studentRegistration.displayAll();
+            switch (choice) {
+                case "1":
+                    System.out.print("Enter Student ID: ");
+                    String ID = scanner.nextLine();
+
+                    System.out.print("Enter Student Name: ");
+                    String name = scanner.nextLine();
+
+                    System.out.print("Enter Student Program: ");
+                    String program = scanner.nextLine();
+
+                    studentRegistration.addStudent(new Student(name,ID,program));
+                    System.out.println();
+                    break;
+
+                case "2":
+                    System.out.println();
+                    studentRegistration.displayAll();
+                    break;
+
+                case "3":
+                    System.out.print("Enter Student ID to update: ");
+                    String updateID = scanner.nextLine();
+
+                    Student studentToUpdate = new Student();
+                    studentToUpdate.setID(updateID);
+                    studentRegistration.updateStudent(studentToUpdate);
+                    System.out.println();
+                    break;
+
+                case "4":
+                    System.out.print("Enter Student ID to remove: ");
+                    String removeID = scanner.nextLine();
+
+                    Student studentToRemove = new Student();
+                    studentToRemove.setID(removeID);
+                    System.out.println(studentRegistration.delete(studentToRemove));
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice. Please try again.");
+                    break;
+
+            }
+        }
 
     }
 }
