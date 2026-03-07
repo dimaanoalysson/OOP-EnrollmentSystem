@@ -1,36 +1,17 @@
 package org.example.model;
 
-public class Student {
-    private String ID;
-    private String name;
+public class Student extends Person {
     private String program;
 
     //no-args constructor
     public Student(){
-
+        super();
     }
 
     // Constructor
-    public Student(String ID, String name, String program){
-        this.ID = ID;
-        this.name = name;
+    public Student(String id, String name, String program){
+        super(id, name);
         this.program = program;
-    }
-
-    public String getID(){
-        return ID;
-    }
-
-    public void setID(String ID){
-        this.ID = ID;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setName(String name){
-        this.name = name;
     }
 
     public void setProgram(String program){

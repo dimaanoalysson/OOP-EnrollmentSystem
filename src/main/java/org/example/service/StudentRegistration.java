@@ -20,7 +20,7 @@ public class StudentRegistration {
         }
 
         for (Student s : studentArrayList){
-            System.out.println("Student ID: " + s.getID());
+            System.out.println("Student ID: " + s.getId());
             System.out.println("Student Name: " + s.getName());
             System.out.println("Student Program: " + s.getProgram());
             System.out.println();
@@ -30,14 +30,14 @@ public class StudentRegistration {
     public void  updateStudent(Student student){
         boolean found = false;
         for (int i = 0; i < studentArrayList.size(); i++) {
-            if(studentArrayList.get(i).getID().equals(student.getID())){
+            if(studentArrayList.get(i).getId().equals(student.getId())){
                 System.out.print("Enter New Student Name: ");
                 String newStudentName = scanner.nextLine();
 
                 System.out.print("Enter New Program: ");
                 String newProgram = scanner.nextLine();
 
-                studentArrayList.set(i, new Student(student.getID(), newStudentName, newProgram));
+                studentArrayList.set(i, new Student(student.getId(), newStudentName, newProgram));
                 found = true;
                 System.out.println("Successfully Updated!\n");
                 break;
@@ -47,7 +47,7 @@ public class StudentRegistration {
 
     public String delete(Student student){
         for(int i = 0; i < studentArrayList.size(); i++){
-            if(studentArrayList.get(i).getID().equals(student.getID())){
+            if(studentArrayList.get(i).getId().equals(student.getId())){
                 studentArrayList.remove(i);
                 return "Student Successfully Deleted!";
             }

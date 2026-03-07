@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.model.Course;
+import org.example.model.Person;
 import org.example.model.Student;
 import org.example.service.CourseRegistration;
 import org.example.service.StudentRegistration;
@@ -60,7 +61,7 @@ public class Main {
                         String updateID = scanner.nextLine();
 
                         Student studentToUpdate = new Student();
-                        studentToUpdate.setID(updateID);
+                        studentToUpdate.setId(updateID);
                         studentRegistration.updateStudent(studentToUpdate);
                         break;
 
@@ -69,7 +70,7 @@ public class Main {
                         String removeID = scanner.nextLine();
 
                         Student studentToRemove = new Student();
-                        studentToRemove.setID(removeID);
+                        studentToRemove.setId(removeID);
                         System.out.println(studentRegistration.delete(studentToRemove));
                         break;
 
