@@ -13,7 +13,7 @@ public class TuitionFeePayment{
         double discountAmount = Fee * discountRate;
 
         this.totalTuition = Fee - discountAmount;
-        this.balance += this.totalTuition;
+        this.balance = this.totalTuition;
 
         return this.totalTuition;
     }

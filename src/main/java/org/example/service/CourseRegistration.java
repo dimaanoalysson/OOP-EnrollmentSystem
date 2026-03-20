@@ -9,24 +9,35 @@ public class CourseRegistration {
     private ArrayList<Course> courseArrayList = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
 
+    // Create
     public void addCourse(Course course){
         courseArrayList.add(course);
     }
 
+    // Read
     public void displayAll() {
         if (courseArrayList.isEmpty()){
             System.out.println("There are no courses registered yet.");
             return;
         }
 
+        System.out.println("\n---LIST OF REGISTERED COURSES---");
         for (Course c : courseArrayList){
             System.out.println("Course ID: " + c.getcourseID());
             System.out.println("Course Name: " + c.getcourseName());
             System.out.println("Course Program: " + c.getCourseProgram());
+
+            if (c.getInstructor() != null) {
+                System.out.println("Instructor: " + c.getInstructor().getPersonName());
+                c.getInstructor().mainTask();
+            } else {
+                System.out.println("Instructor: Not assigned yet.");
+            }
             System.out.println();
         }
     }
 
+    // Update
     public void  updateCourse(Course course){
         boolean found = false;
         for (int i = 0; i < courseArrayList.size(); i++) {
@@ -37,14 +48,21 @@ public class CourseRegistration {
                 System.out.print("Enter New Program: ");
                 String newProgram = scanner.nextLine();
 
-                courseArrayList.set(i, new Course(course.getcourseID(), newCourse, newProgram));
+                Course existingStudent = courseArrayList.get(i);
+                existingStudent.setcourseName(newCourse);
+                existingStudent.setcourseProgram(newProgram);
+
                 found = true;
                 System.out.print("Successfully Updated!\n");
                 break;
             }
         }
+        if (!found){
+            System.out.println("Course Not Found!\n");
+        }
     }
 
+    // Delete
     public String delete(Course course){
         for(int i = 0; i < courseArrayList.size(); i++){
             if(courseArrayList.get(i).getcourseID().equals(course.getcourseID())){
@@ -52,7 +70,6 @@ public class CourseRegistration {
                 return "Successfully Deleted!";
             }
         }
-
         return "No such course exists!";
     }
 }

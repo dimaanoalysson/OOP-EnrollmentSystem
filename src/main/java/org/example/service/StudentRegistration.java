@@ -26,6 +26,8 @@ public class StudentRegistration {
             System.out.println("Student ID: " + s.getPersonID());
             System.out.println("Student Name: " + s.getPersonName());
             System.out.println("Student Program: " + s.getProgram());
+
+            s.mainTask();
             System.out.println();
         }
     }
@@ -41,11 +43,17 @@ public class StudentRegistration {
                 System.out.print("Enter New Program: ");
                 String newProgram = scanner.nextLine();
 
-                studentArrayList.set(i, new Student(student.getPersonID(), newStudentName, newProgram));
+                Student existingStudent = studentArrayList.get(i);
+                existingStudent.setPersonName(newStudentName);
+                existingStudent.setProgram(newProgram);
+
                 found = true;
                 System.out.println("Successfully Updated!\n");
                 break;
             }
+        }
+        if (!found) {
+            System.out.println("Student Not Found!\n");
         }
     }
 

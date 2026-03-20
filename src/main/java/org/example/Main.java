@@ -3,6 +3,7 @@ package org.example;
 import org.example.model.Course;
 import org.example.model.Person;
 import org.example.model.Student;
+import org.example.model.Instructor;
 import org.example.model.TuitionFeePayment;
 import org.example.service.CourseRegistration;
 import org.example.service.StudentRegistration;
@@ -29,11 +30,14 @@ public class Main {
 
             if (mainChoice.equalsIgnoreCase("A")) {
 
+                boolean isStudentMenu = true;
+                while (isStudentMenu) {
                 System.out.println("\n---STUDENT REGISTRATION---");
                 System.out.println("[1] Save Student");
                 System.out.println("[2] Display Student");
                 System.out.println("[3] Update Student");
                 System.out.println("[4] Remove Student");
+                System.out.println("[5] Back to Main Menu");
 
                 System.out.print("Enter Choice: ");
                 String choice = scanner.nextLine();
@@ -76,19 +80,25 @@ public class Main {
                         System.out.println(studentRegistration.delete(studentToRemove));
                         break;
 
-
+                    case "5":
+                        isStudentMenu = false;
+                        break;
 
                     default:
                         System.out.println("Invalid Choice. Please try again.\n");
                         break;
+                    }
                 }
             } else if (mainChoice.equalsIgnoreCase("B")) {
 
+                boolean isCourseMenu = true;
+                while (isCourseMenu) {
                 System.out.println("\n---COURSE REGISTRATION---");
                 System.out.println("[1] Save Course");
                 System.out.println("[2] Display Course");
                 System.out.println("[3] Update Course");
                 System.out.println("[4] Remove Course");
+                System.out.println("[5] Back to Main Menu");
 
                 System.out.print("Enter Choice: ");
                 String choice = scanner.nextLine();
@@ -104,7 +114,17 @@ public class Main {
                         System.out.print("Enter Course Program: ");
                         String courseProgram = scanner.nextLine();
 
-                        courseRegistration.addCourse(new Course(courseID, courseName, courseProgram));
+                        Course newCourse = new Course(courseID, courseName, courseProgram);
+
+                        System.out.print("Enter Instructor Name: ");
+                        String instructorName = scanner.nextLine();
+                        Instructor courseInstructor = new Instructor("Instructor: " + courseID, instructorName, courseProgram);
+
+                        newCourse.setInstructor(courseInstructor);
+                        courseRegistration.addCourse(newCourse);
+
+                        System.out.print("Instructor Role: ");
+                        courseInstructor.mainTask();
                         System.out.println();
                         break;
 
@@ -131,13 +151,21 @@ public class Main {
                         System.out.println(courseRegistration.delete(courseToRemove));
                         break;
 
+                    case "5":
+                        isCourseMenu = false;
+                        break;
+
                     default:
                         System.out.println("\nInvalid Choice. Please try again.");
                         break;
+                    }
                 }
             } else if (mainChoice.equalsIgnoreCase("C")) {
+
+                boolean isTuitionMenu = true;
+                while (isTuitionMenu) {
                 System.out.println("\n---TUITION PAYMENT---");
-                System.out.println("Enter Student ID: ");
+                System.out.print("Enter Student ID: ");
                 String studentID = scanner.nextLine();
 
                 Student currentStudent = studentRegistration.getStudent(studentID);
@@ -150,14 +178,14 @@ public class Main {
                     System.out.println("[2] Make Payment");
                     System.out.println("[3] Check Balance");
 
-                    System.out.println("Enter Choice: ");
+                    System.out.print("Enter Choice: ");
                     String tuitionChoice = scanner.nextLine();
 
                     TuitionFeePayment transaction = currentStudent.getPaymentTransaction();
 
                     switch (tuitionChoice) {
                         case "1":
-                            System.out.println("Enter total number of units: ");
+                            System.out.print("Enter total number of units: ");
                             int units = Integer.parseInt(scanner.nextLine());
 
                             System.out.println("\nChoose Payment Plan:");
@@ -165,7 +193,7 @@ public class Main {
                             System.out.println("Plan B: Quarterly Payment");
                             System.out.println("Plan C: Monthly Payment");
 
-                            System.out.println("Select Plan (A/B/C): ");
+                            System.out.print("Select Plan (A/B/C): ");
                             String plan = scanner.nextLine().toUpperCase();
 
                             double discount = 0.0;
@@ -179,31 +207,49 @@ public class Main {
                         }
 
                         double total = transaction.calculateTuitionFee(units, discount);
-                        System.out.println("Total Tuition: " + total);
+                        System.out.println("\nTotal Tuition: " + total);
 
                         if (plan.equalsIgnoreCase("B")){
                             System.out.println("Quarterly Payment Amount (4 terms): " + (total / 4));
                         }else if (plan.equalsIgnoreCase("C")) {
                             System.out.println("Monthly payment amount (10 months): " + (total / 10));
                         }
+
+                        System.out.println("\n--- Proceeding to Payment ---");
+                        System.out.print("Enter Payment Amount: ");
+                        double amount = Double.parseDouble(scanner.nextLine());
+
+                        transaction.makePayment(amount);
+                        System.out.println("Payment Applied!");
+                        transaction.getRemainingBalance();
+
+                        System.out.println("\nReturning to Main Menu...");
+                        isTuitionMenu = false;
+
                         break;
 
                         case "2":
                             System.out.print("Enter Payment Amount: ");
-                            double amount = Double.parseDouble(scanner.nextLine());
-                            transaction.makePayment(amount);
+                            double amountFull = Double.parseDouble(scanner.nextLine());
 
+                            transaction.makePayment(amountFull);
                             System.out.println("Payment Applied!");
                             transaction.getRemainingBalance();
+
+                            System.out.println("\nReturning to Main Menu...");
+                            isTuitionMenu = false;
                             break;
 
                         case "3":
                             transaction.getRemainingBalance();
+                            System.out.println("\nReturning to Main Menu...");
+                            isTuitionMenu = false;
                             break;
 
                         default:
                             System.out.println("Invalid Choice. Please try again. \n");
                             break;
+                            }
                          }
                     }
                 } else if (mainChoice.equalsIgnoreCase("D")) {
@@ -213,5 +259,6 @@ public class Main {
                     System.out.println("Invalid Choice. Please try again. \n");
             }
         }
+        scanner.close();
     }
 }

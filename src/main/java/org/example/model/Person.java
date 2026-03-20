@@ -17,7 +17,7 @@ public abstract class Person {
         return PersonID;
     }
 
-    public void setPersonID(String personID) {
+    public void setPersonID(String PersonID) {
         this.PersonID = PersonID;
     }
 
@@ -25,8 +25,8 @@ public abstract class Person {
         return PersonName;
     }
 
-    public void setPersonName(String personName) {
-        this.PersonName = personName;
+    public void setPersonName(String PersonName) {
+        this.PersonName = PersonName;
     }
 
     public abstract void mainTask();

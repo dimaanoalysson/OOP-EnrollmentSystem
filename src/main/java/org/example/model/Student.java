@@ -11,8 +11,8 @@ public class Student extends Person {
     }
 
     // Constructor
-    public Student(String personID, String personName, String program){
-        super(personID, personName);
+    public Student(String PersonID, String PersonName, String program){
+        super(PersonID, PersonName);
         this.program = program;
         this.paymentTransaction = new TuitionFeePayment();
     }
