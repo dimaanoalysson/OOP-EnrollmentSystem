@@ -4,15 +4,15 @@ public class Student extends Person {
     private String program;
     private TuitionFeePayment paymentTransaction;
 
-    //no-args constructor
+    // No-args Constructor
     public Student(){
         super();
         this.paymentTransaction = new TuitionFeePayment();
     }
 
     // Constructor
-    public Student(String id, String name, String program){
-        super(id, name);
+    public Student(String personID, String personName, String program){
+        super(personID, personName);
         this.program = program;
         this.paymentTransaction = new TuitionFeePayment();
     }
@@ -27,5 +27,10 @@ public class Student extends Person {
 
     public TuitionFeePayment getPaymentTransaction() {
         return paymentTransaction;
+    }
+
+    @Override
+    public void mainTask() {
+        System.out.println("Studying");
     }
 }

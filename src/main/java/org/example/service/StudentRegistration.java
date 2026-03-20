@@ -20,8 +20,8 @@ public class StudentRegistration {
         }
 
         for (Student s : studentArrayList){
-            System.out.println("Student ID: " + s.getId());
-            System.out.println("Student Name: " + s.getName());
+            System.out.println("Student ID: " + s.getPersonID());
+            System.out.println("Student Name: " + s.getPersonName());
             System.out.println("Student Program: " + s.getProgram());
             System.out.println();
         }
@@ -30,14 +30,14 @@ public class StudentRegistration {
     public void  updateStudent(Student student){
         boolean found = false;
         for (int i = 0; i < studentArrayList.size(); i++) {
-            if(studentArrayList.get(i).getId().equals(student.getId())){
+            if(studentArrayList.get(i).getPersonID().equals(student.getPersonID())){
                 System.out.print("Enter New Student Name: ");
                 String newStudentName = scanner.nextLine();
 
                 System.out.print("Enter New Program: ");
                 String newProgram = scanner.nextLine();
 
-                studentArrayList.set(i, new Student(student.getId(), newStudentName, newProgram));
+                studentArrayList.set(i, new Student(student.getPersonID(), newStudentName, newProgram));
                 found = true;
                 System.out.println("Successfully Updated!\n");
                 break;
@@ -47,11 +47,11 @@ public class StudentRegistration {
 
     public String delete(Student student){
         for(int i = 0; i < studentArrayList.size(); i++){
-            if(studentArrayList.get(i).getId().equals(student.getId())){
+            if(studentArrayList.get(i).getPersonID().equals(student.getPersonID())){
                 studentArrayList.remove(i);
                 return "Student Successfully Deleted!";
             }
         }
-        return "No such student exists!";
+        return "No such student found!";
     }
 }

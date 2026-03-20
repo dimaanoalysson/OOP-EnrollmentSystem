@@ -1,9 +1,17 @@
 package org.example.model;
 
-public class Instructor extends Person {
-    private String courses;
+import java.util.ArrayList;
 
-    public Instructor(String id, String name) {
-        super(id, name);
+public class Instructor extends Person {
+    private ArrayList<String> courses;
+
+    public Instructor(String personID, String personName) {
+        super(personID, personName);
+        this.courses = new ArrayList<>();
+    }
+
+    @Override
+    public void mainTask() {
+        System.out.println("Teaches");
     }
 }

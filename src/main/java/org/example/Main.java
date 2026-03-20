@@ -3,6 +3,7 @@ package org.example;
 import org.example.model.Course;
 import org.example.model.Person;
 import org.example.model.Student;
+import org.example.model.TuitionFeePayment;
 import org.example.service.CourseRegistration;
 import org.example.service.StudentRegistration;
 
@@ -20,7 +21,8 @@ public class Main {
             System.out.println("\n---MAIN MENU---\n");
             System.out.println("A. Student Registration");
             System.out.println("B. Course Registration");
-            System.out.println("C. Exit");
+            System.out.println("C. Tuition Fee Payment");
+            System.out.println("D. Exit");
 
             System.out.print("Enter Choice: ");
             String mainChoice = scanner.nextLine();
@@ -61,7 +63,7 @@ public class Main {
                         String updateID = scanner.nextLine();
 
                         Student studentToUpdate = new Student();
-                        studentToUpdate.setId(updateID);
+                        studentToUpdate.setPersonID(updateID);
                         studentRegistration.updateStudent(studentToUpdate);
                         break;
 
@@ -70,7 +72,7 @@ public class Main {
                         String removeID = scanner.nextLine();
 
                         Student studentToRemove = new Student();
-                        studentToRemove.setId(removeID);
+                        studentToRemove.setPersonID(removeID);
                         System.out.println(studentRegistration.delete(studentToRemove));
                         break;
 
@@ -134,9 +136,80 @@ public class Main {
                         break;
                 }
             } else if (mainChoice.equalsIgnoreCase("C")) {
+                System.out.println("\n---TUITION PAYMENT---");
+                System.out.println("Enter Student ID: ");
+                String studentID = scanner.nextLine();
+
+                Student currentStudent = studentRegistration.getStudent(StudentID);
+
+                if (currentStudent == null){
+                    System.out.println("Student not found! Please REGISTER the student in Main Menu: 'A'. Thank you!");
+                } else {
+                    System.out.println("Student Found: " + currentStudent.getPersonName());
+                    System.out.println("[1] Choose Plan");
+                    System.out.println("[2] Make Payment");
+                    System.out.println("[3] Check Balance");
+
+                    System.out.println("Enter Choice: ");
+                    String tuitionChoice = scanner.nextLine();
+
+                    TuitionFeePayment transaction = currentStudent.getPaymentTransaction();
+
+                    switch (tuitionChoice) {
+                        case "1":
+                            System.out.println("Enter total number of units: ");
+                            int units = Integer.parseInt(scanner.nextLine());
+
+                            System.out.println("\nChoose Payment Plan:");
+                            System.out.println("Plan A: Full Payment (3% discount)");
+                            System.out.println("Plan B: Quarterly Payment");
+                            System.out.println("Plan C: Monthly Payment");
+
+                            System.out.println("Select Plan (A/B/C): ");
+                            String plan = scanner.nextLine().toUpperCase();
+
+                            double discount = 0.0;
+                            if (plan.equalsIgnoreCase("A")){
+                                discount = 0.03;
+                            } else if (plan.equalsIgnoreCase("B") || plan.equalsIgnoreCase("C"))){
+                                discount = 0.00;
+                            } else {
+                            System.out.println("Invalid Payment Plan Selected. Please try again.");
+                            break;
+                        }
+
+                        double total = record.calculateTuitionFee(units, discount);
+                        System.out.println("Total Tuition: " + total);
+                        }
+
+                        if (plan.equalsIgnoreCase("B")){
+                            System.out.println("Quarterly Payment Amount (4 terms): " + (total / 4));
+                        }else if (plan.equalsIgnoreCase("C")) {
+                            System.out.println("Monthly payment amount (10 months): " + (total / 10));
+                        }
+                        break;
+
+                        case "2":
+                            System.out.print("Enter Payment Amount: ");
+                            double amount = Double.parseDouble(scanner.nextLine());
+                            record.makePayment(amount);
+                            System.out.println("Payment applied!");
+                            record.getRemainingBalance(); // Prints the balance per your UML
+                            break;
+
+                        case "3":
+                            record.getRemainingBalance(); // Prints the balance per your UML
+                            break;
+
+                        default:
+                            System.out.println("Invalid Choice.");
+                            break;
+                         }
+                    }
+                } else if (mainChoice.equalsIgnoreCase("D")) {
                     System.out.println("Program Terminated.");
                     validMainChoice = true;
-            } else {
+                } else {
                     System.out.println("Invalid Choice. Please try again. \n");
             }
         }
