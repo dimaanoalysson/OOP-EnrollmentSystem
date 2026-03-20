@@ -1,7 +1,6 @@
 package org.example.service;
 
 import org.example.model.Student;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,16 +8,20 @@ public class StudentRegistration {
     private ArrayList<Student> studentArrayList = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
 
+    // Create
     public void addStudent(Student student){
         studentArrayList.add(student);
+        System.out.println("Student Successfully Saved!");
     }
 
+    // Read
     public void displayAll() {
         if (studentArrayList.isEmpty()){
             System.out.println("There are no students registered yet.");
             return;
         }
 
+        System.out.println("\n---LIST OF REGISTERED STUDENTS---");
         for (Student s : studentArrayList){
             System.out.println("Student ID: " + s.getPersonID());
             System.out.println("Student Name: " + s.getPersonName());
@@ -27,6 +30,7 @@ public class StudentRegistration {
         }
     }
 
+    // Update
     public void  updateStudent(Student student){
         boolean found = false;
         for (int i = 0; i < studentArrayList.size(); i++) {
@@ -45,6 +49,7 @@ public class StudentRegistration {
         }
     }
 
+    // Delete
     public String delete(Student student){
         for(int i = 0; i < studentArrayList.size(); i++){
             if(studentArrayList.get(i).getPersonID().equals(student.getPersonID())){
@@ -53,5 +58,15 @@ public class StudentRegistration {
             }
         }
         return "No such student found!";
+    }
+
+    // Finder for the Tuition in Menu C
+    public Student getStudent(String personID){
+        for (Student s : studentArrayList){
+            if(s.getPersonID().equals(personID)){
+                return s;
+            }
+        }
+        return null;
     }
 }

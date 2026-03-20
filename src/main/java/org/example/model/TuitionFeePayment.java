@@ -10,9 +10,9 @@ public class TuitionFeePayment{
 
     public double calculateTuitionFee(int units, double discountRate){
         double Fee = units * pricePerUnit;
-        double disocuntAmount = Fee * discountRate;
+        double discountAmount = Fee * discountRate;
 
-        this.totalTuition = Fee - disocuntAmount;
+        this.totalTuition = Fee - discountAmount;
         this.balance += this.totalTuition;
 
         return this.totalTuition;
@@ -33,7 +33,7 @@ public class TuitionFeePayment{
         System.out.println("Remaining Balance: " + this.balance);
     }
 
-    public boolean isFull() {
+    public boolean isFullPaid() {
         return this.balance <= 0;
     }
 

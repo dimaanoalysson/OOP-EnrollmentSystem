@@ -140,7 +140,7 @@ public class Main {
                 System.out.println("Enter Student ID: ");
                 String studentID = scanner.nextLine();
 
-                Student currentStudent = studentRegistration.getStudent(StudentID);
+                Student currentStudent = studentRegistration.getStudent(studentID);
 
                 if (currentStudent == null){
                     System.out.println("Student not found! Please REGISTER the student in Main Menu: 'A'. Thank you!");
@@ -171,16 +171,15 @@ public class Main {
                             double discount = 0.0;
                             if (plan.equalsIgnoreCase("A")){
                                 discount = 0.03;
-                            } else if (plan.equalsIgnoreCase("B") || plan.equalsIgnoreCase("C"))){
+                            } else if (plan.equalsIgnoreCase("B") || plan.equalsIgnoreCase("C")){
                                 discount = 0.00;
                             } else {
-                            System.out.println("Invalid Payment Plan Selected. Please try again.");
+                                System.out.println("Invalid Payment Plan Selected. Please try again. \n");
                             break;
                         }
 
-                        double total = record.calculateTuitionFee(units, discount);
+                        double total = transaction.calculateTuitionFee(units, discount);
                         System.out.println("Total Tuition: " + total);
-                        }
 
                         if (plan.equalsIgnoreCase("B")){
                             System.out.println("Quarterly Payment Amount (4 terms): " + (total / 4));
@@ -192,17 +191,18 @@ public class Main {
                         case "2":
                             System.out.print("Enter Payment Amount: ");
                             double amount = Double.parseDouble(scanner.nextLine());
-                            record.makePayment(amount);
-                            System.out.println("Payment applied!");
-                            record.getRemainingBalance(); // Prints the balance per your UML
+                            transaction.makePayment(amount);
+
+                            System.out.println("Payment Applied!");
+                            transaction.getRemainingBalance();
                             break;
 
                         case "3":
-                            record.getRemainingBalance(); // Prints the balance per your UML
+                            transaction.getRemainingBalance();
                             break;
 
                         default:
-                            System.out.println("Invalid Choice.");
+                            System.out.println("Invalid Choice. Please try again. \n");
                             break;
                          }
                     }

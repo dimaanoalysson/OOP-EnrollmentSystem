@@ -25,7 +25,7 @@ public abstract class Person {
         return PersonName;
     }
 
-    public void setName(String personName) {
+    public void setPersonName(String personName) {
         this.PersonName = personName;
     }
 
