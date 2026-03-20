@@ -4,6 +4,7 @@ public class Course {
     private String courseID;
     private String courseName;
     private String courseProgram;
+    private Instructor instructor;
 
     //no-args constructor
     public Course(){
@@ -15,6 +16,14 @@ public class Course {
         this.courseID = CourseID;
         this.courseName = courseName;
         this.courseProgram = courseProgram;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
     public String getcourseID(){
